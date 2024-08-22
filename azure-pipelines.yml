@@ -8,8 +8,7 @@ resources:
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
+pool: Default
 
 variables:
   serviceNowUrl: https://dev192158.service-now.com/
