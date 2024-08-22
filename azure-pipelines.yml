@@ -1,31 +1,43 @@
+resources:
+ repositories:
+   - repository: Demo_repo
+     type: github
+     endpoint: github.com_vinitamishra15
+     name: vinitamishra15/Demo_repo
+
 trigger:
-  - main
+- main
+
 pool:
   vmImage: ubuntu-latest
-variables:
-  serviceNowUrl: $(serviceNowUrl)
-  serviceNowUsername: $(serviceNowUser)
-  serviceNowPassword: $(serviceNowPassword)
-stages:
-  - stage: DeployToServiceNow
-    jobs:
-      - job: DeployUpdateSet
-        steps:
-          - task: Checkout@1
-            inputs:
-              repository: Demo_repo
-          - script: >
-              echo "Downloading update set..."
 
-              wget
-              https://raw.githubusercontent.com/vinitamishra15/Demo_repo/sn_instances/dev212832/04b8a32747401210acd2a22f316d43ef/sys_app_04b8a32747401210acd2a22f316d43ef.xml
-              -O update-set.xml
-            displayName: Download Update Set
-          - script: |
-              echo "Uploading update set to ServiceNow..."
-              curl -u $(serviceNowUsername):$(serviceNowPassword) \
-              -X POST "$(serviceNowUrl)/api/now/import/update_set" \
-              --header "Accept:application/json" \
-              --header "Content-Type:application/xml" \
-              --data-binary "@update-set.xml"
-            displayName: Upload Update Set to ServiceNow
+variables:
+  serviceNowUrl: https://dev192158.service-now.com/
+  serviceNowUsername: '$(serviceNowUser)'
+  serviceNowPassword: '$(serviceNowPassword)'
+
+stages:
+- stage: DeployToServiceNow
+  jobs:
+  - job: DeployUpdateSet
+    steps:
+
+    # Step 1: Checkout the code from GitHub
+    - checkout: self
+    - checkout: Demo_repo
+
+    # Step 2: Download the update set XML file
+    - script: |
+        echo "Downloading update set..."
+        wget https://raw.githubusercontent.com/vinitamishra15/Demo_repo/sn_instances/dev212832/04b8a32747401210acd2a22f316d43ef/sys_app_04b8a32747401210acd2a22f316d43ef.xml -O update-set.xml
+      displayName: 'Download Update Set'
+
+    # Step 3: Upload the update set to ServiceNow
+    - script: |
+        echo "Uploading update set to ServiceNow..."
+        curl -u $(serviceNowUsername):$(serviceNowPassword) \
+        -X POST "$(serviceNowUrl)/api/now/import/update_set" \
+        --header "Accept:application/json" \
+        --header "Content-Type:application/xml" \
+        --data-binary "@update-set.xml"
+      displayName: 'Upload Update Set to ServiceNow'
