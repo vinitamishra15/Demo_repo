@@ -1,19 +1,31 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
-
+  - main
 pool:
   vmImage: ubuntu-latest
+variables:
+  serviceNowUrl: $(serviceNowUrl)
+  serviceNowUsername: $(serviceNowUser)
+  serviceNowPassword: $(serviceNowPassword)
+stages:
+  - stage: DeployToServiceNow
+    jobs:
+      - job: DeployUpdateSet
+        steps:
+          - task: Checkout@1
+            inputs:
+              repository: Demo_repo
+          - script: >
+              echo "Downloading update set..."
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+              wget
+              https://raw.githubusercontent.com/vinitamishra15/Demo_repo/sn_instances/dev212832/04b8a32747401210acd2a22f316d43ef/sys_app_04b8a32747401210acd2a22f316d43ef.xml
+              -O update-set.xml
+            displayName: Download Update Set
+          - script: |
+              echo "Uploading update set to ServiceNow..."
+              curl -u $(serviceNowUsername):$(serviceNowPassword) \
+              -X POST "$(serviceNowUrl)/api/now/import/update_set" \
+              --header "Accept:application/json" \
+              --header "Content-Type:application/xml" \
+              --data-binary "@update-set.xml"
+            displayName: Upload Update Set to ServiceNow
