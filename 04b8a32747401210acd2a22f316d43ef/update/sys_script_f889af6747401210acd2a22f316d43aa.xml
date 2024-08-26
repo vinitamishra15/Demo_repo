@@ -32,6 +32,7 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
 
+	//This is a test business rule
 	current.short_description = "Test business rule";
 	current.description = "This is the description of Demo business rule.";
 
@@ -42,7 +43,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>f889af6747401210acd2a22f316d43aa</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>Demo_BR</sys_name>
         <sys_overrides/>
         <sys_package display_value="Global" source="global">global</sys_package>
@@ -50,7 +51,7 @@
         <sys_scope display_value="DevOps_Demo">04b8a32747401210acd2a22f316d43ef</sys_scope>
         <sys_update_name>sys_script_f889af6747401210acd2a22f316d43aa</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-08-22 14:42:46</sys_updated_on>
+        <sys_updated_on>2024-08-23 14:06:32</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
