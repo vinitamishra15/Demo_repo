@@ -15,11 +15,25 @@ variables:
   serviceNowUsername: '$(serviceNowUser)'
   serviceNowPassword: '$(serviceNowPassword)'
 
-steps:
-  - checkout: self
-  - checkout: Demo_repo
+stages:
+- stage: DeployToServiceNow
+  jobs:
+  - job: DeployUpdateSet
+    steps:
 
-  - task: CmdLine@2
-    inputs:
-     script: |
-       curl -X POST "https://dev192158.service-now.com/api/sn_cicd/app_repo/import" --user "Test_demo:.Wkg@(z;f;0Stc&RSgnUDI!9KZ@Qn^Jo1ka)7u!xFi55MO%W)g=r+hy+rn6>Nl" -H "Content-Type: application/xml"
+    # Step 1: Checkout the code from GitHub
+    - checkout: self
+    - checkout: Demo_repo
+
+    # Step 2: Download the update set XML file
+    - script: |
+        echo "Downloading update set..."
+        curl -L -o update-set.xml https://raw.githubusercontent.com/vinitamishra15/Demo_repo/sn_instances/dev212832/04b8a32747401210acd2a22f316d43ef/sys_app_04b8a32747401210acd2a22f316d43ef.xml
+      displayName: 'Download Update Set'
+
+    # Step 3: Upload the update set to ServiceNow
+    - script: |
+        echo "Uploading update set to ServiceNow..."
+        curl -X POST https://dev192158.service-now.com/api/now/attachment/file --user 'admin:4H*ylGJ7vh-P' --header 'Content-Type: multipart/form-data' --form 'table_name=sys_app' --form 'table_sys_id=abcd1234efgh5678ijkl9012mnop3456' --form 'file=@update-set.xml'
+    #    curl -u $(serviceNowUsername):$(serviceNowPassword) -X POST "$(serviceNowUrl)/api/now/import/update_set" -H "Accept:application/json" -H "Content-Type:application/xml" --data-binary "@update-set.xml"
+      displayName: 'Upload Update Set to ServiceNow'
