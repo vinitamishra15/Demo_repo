@@ -34,6 +34,5 @@ stages:
     # Step 3: Upload the update set to ServiceNow
     - script: |
         echo "Uploading update set to ServiceNow..."
-        curl -X POST https://dev192158.service-now.com/api/now/attachment/file --user 'admin:4H*ylGJ7vh-P' --header 'Content-Type: multipart/form-data' --form 'table_name=sys_app' --form 'table_sys_id=abcd1234efgh5678ijkl9012mnop3456' --form 'file=@update-set.xml'
-    #    curl -u $(serviceNowUsername):$(serviceNowPassword) -X POST "$(serviceNowUrl)/api/now/import/update_set" -H "Accept:application/json" -H "Content-Type:application/xml" --data-binary "@update-set.xml"
+        curl -u $(serviceNowUsername):$(serviceNowPassword) -X POST "$(serviceNowUrl)/api/now/import/update_set" -H "Accept:application/json" -H "Content-Type:application/xml" --data-binary "@update-set.xml"
       displayName: 'Upload Update Set to ServiceNow'
