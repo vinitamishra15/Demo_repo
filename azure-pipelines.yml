@@ -16,14 +16,29 @@ variables:
   serviceNowPassword: '$(serviceNowPassword)'
 
 stages:
-- stage: DeployToServiceNow
+- stage: build
   jobs:
-  - job: DeployUpdateSet
+  - job: BuildUpdateSet
     steps:
 
     # Step 1: Checkout the code from GitHub
     - checkout: self
     - checkout: Demo_repo
+
+    # Step 2: Run SonarQube scan
+    - task: SonarQubePrepare@6
+      inputs:
+         SonarQube: 'Sonar_conn'
+         scannerMode: CLI
+         configMode: file
+         configFile: 'sonar-project.properties'
+
+    - task: SonarQubeAnalyze@6
+
+    - task: SonarQubePublish@6
+      inputs:
+        pollingTimeoutSec: 300
+
 
     # Step 2: Download the update set XML file
     - script: |
