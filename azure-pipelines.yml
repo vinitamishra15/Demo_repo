@@ -39,7 +39,6 @@ stages:
       inputs:
         pollingTimeoutSec: 300
 
-
     # Step 2: Download the update set XML file
     - script: |
         echo "Downloading update set..."
