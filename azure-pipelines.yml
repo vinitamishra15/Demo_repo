@@ -29,6 +29,7 @@ stages:
       inputs:
         connectedServiceName: 'snow_CICD'
         version: 1.0
+        sysId: 'a50d91a3475cd2903c241a2f316d43e2'
 
 #    # Step 2: Run SonarQube scan
 #    - task: SonarQubePrepare@6
