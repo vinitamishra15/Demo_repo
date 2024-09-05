@@ -28,6 +28,7 @@ stages:
     - task: ServiceNow-CICD-App-Publish@2
       inputs:
         connectedServiceName: 'snow_CICD'
+        version: 1.0
 
 #    # Step 2: Run SonarQube scan
 #    - task: SonarQubePrepare@6
