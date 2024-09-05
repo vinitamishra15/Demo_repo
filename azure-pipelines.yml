@@ -1,9 +1,9 @@
 resources:
  repositories:
-   - repository: Demo_repo
+   - repository: dummy_repo
      type: github
      endpoint: github.com_vinitamishra15
-     name: vinitamishra15/Demo_repo
+     name: vinitamishra15/dummy_repo
 
 trigger:
 - main
@@ -23,7 +23,7 @@ stages:
 
     # Step 1: Checkout the code from GitHub
     - checkout: self
-    - checkout: Demo_repo
+    - checkout: dummy_repo
 
     - task: ServiceNow-CICD-App-Publish@2
       inputs:
