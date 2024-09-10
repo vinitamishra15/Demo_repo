@@ -46,9 +46,9 @@ stages:
 #        pollingTimeoutSec: 300
 
     # Step 3: Run Selenium test cases
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '3.x'
+#    - task: UsePythonVersion@0
+#      inputs:
+#        versionSpec: '3.x'
 
     - script: |
         python -m pip install --upgrade pip
