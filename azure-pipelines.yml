@@ -39,11 +39,11 @@ stages:
          configMode: file
          configFile: 'sonar-project.properties'
 
-    - task: SonarQubeAnalyze@6
+#    - task: SonarQubeAnalyze@6
 
-    - task: SonarQubePublish@6
-      inputs:
-        pollingTimeoutSec: 300
+#    - task: SonarQubePublish@6
+#      inputs:
+#        pollingTimeoutSec: 300
 
     # Step 3: Run Selenium test cases
     - task: UsePythonVersion@0
