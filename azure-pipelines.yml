@@ -41,7 +41,7 @@ stages:
          cliProjectKey: DemoScan
          cliProjectName: DemoScan
 
-    - task: SonarQubeAnalyze@6
+#    - task: SonarQubeAnalyze@6
 
 #    - task: SonarQubePublish@6
 #      inputs:
@@ -52,15 +52,15 @@ stages:
 #      inputs:
 #        versionSpec: '3.x'
 
-#    - script: |
-#        python -m pip install --upgrade pip
-#        pip install selenium
-#         pip install webdriver-manager
-#      displayName: 'Install dependencies for selenium'
+    - script: |
+        python -m pip install --upgrade pip
+        pip install selenium
+         pip install webdriver-manager
+      displayName: 'Install dependencies for selenium'
 
-#    - script: |
-#        # run python scripts python t-script.py
-#      displayName: 'Run selenium test cases'
+    - script: |
+        pytest Testcase/test_E2EDemoApp.py --maxfail=1 --disable-warnings -q
+      displayName: 'Run selenium test cases'
 
     # Step 2: Download the update set XML file
 #    - script: |
