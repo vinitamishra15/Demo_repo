@@ -50,21 +50,21 @@ stages:
 #      inputs:
 #        versionSpec: '3.x'
 
-    - script: |
-        python -m pip install --upgrade pip
-        pip install selenium
-         pip install webdriver-manager
-      displayName: 'Install dependencies for selenium'
+#    - script: |
+#        python -m pip install --upgrade pip
+#        pip install selenium
+#         pip install webdriver-manager
+#      displayName: 'Install dependencies for selenium'
 
-    - script: |
-        # run python scripts python t-script.py
-      displayName: 'Run selenium test cases'
+#    - script: |
+#        # run python scripts python t-script.py
+#      displayName: 'Run selenium test cases'
 
     # Step 2: Download the update set XML file
-    - script: |
-        echo "Downloading update set..."
-        curl -L -o update-set.xml https://raw.githubusercontent.com/vinitamishra15/Demo_repo/sn_instances/dev212832/04b8a32747401210acd2a22f316d43ef/sys_app_04b8a32747401210acd2a22f316d43ef.xml
-      displayName: 'Download Update Set'
+#    - script: |
+#        echo "Downloading update set..."
+#        curl -L -o update-set.xml https://raw.githubusercontent.com/vinitamishra15/Demo_repo/sn_instances/dev212832/04b8a32747401210acd2a22f316d43ef/sys_app_04b8a32747401210acd2a22f316d43ef.xml
+#      displayName: 'Download Update Set'
 
 #    # Step 3: Upload the update set to ServiceNow
 #    - script: |
