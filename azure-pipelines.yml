@@ -48,12 +48,6 @@ stages:
 #      workingDirectory: dummy_repo
       displayName: 'Run SonarQube Analysis'
 
-#    - task: SonarQubeAnalyze@6
-
-#    - task: SonarQubePublish@6
-#      inputs:
-#        pollingTimeoutSec: 300
-
     # Step 3: Prepare to run test cases
     - script: |
         python -m pip install --upgrade pip
@@ -66,15 +60,3 @@ stages:
     - script: |
         pytest Demo_test/Testcase/test_E2EDemoApp.py --maxfail=1 --disable-warnings -q
       displayName: 'Run selenium test cases'
-
-    # Step 2: Download the update set XML file
-#    - script: |
-#        echo "Downloading update set..."
-#        curl -L -o update-set.xml https://raw.githubusercontent.com/vinitamishra15/Demo_repo/sn_instances/dev212832/04b8a32747401210acd2a22f316d43ef/sys_app_04b8a32747401210acd2a22f316d43ef.xml
-#      displayName: 'Download Update Set'
-
-#    # Step 3: Upload the update set to ServiceNow
-#    - script: |
-#        echo "Uploading update set to ServiceNow..."
-#        curl -u $(serviceNowUsername):$(serviceNowPassword) -X POST "$(serviceNowUrl)/api/now/import/update_set" -H "Accept:application/json" -H "Content-Type:application/xml" --data-binary "@update-set.xml"
-#      displayName: 'Upload Update Set to ServiceNow'
