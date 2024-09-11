@@ -37,7 +37,9 @@ stages:
          SonarQube: 'Sonar_conn'
          scannerMode: CLI
          configMode: file
-         configFile: 'sonar-project.properties'
+#         configFile: 'sonar-project.properties'
+         cliProjectKey: DemoScan
+         cliProjectName: DemoScan
 
     - task: SonarQubeAnalyze@6
 
