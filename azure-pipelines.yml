@@ -8,6 +8,7 @@ resources:
      type: github
      endpoint: github.com_vinitamishra15
      name: vinitamishra15/Demo_test
+     ref: refs/heads/master
 
 trigger:
 - main
@@ -60,7 +61,7 @@ stages:
       displayName: 'Install dependencies for selenium'
 
     - script: |
-        pytest Testcase/test_E2EDemoApp.py --maxfail=1 --disable-warnings -q
+        pytest Demo_test/Testcase/test_E2EDemoApp.py --maxfail=1 --disable-warnings -q
       displayName: 'Run selenium test cases'
 
     # Step 2: Download the update set XML file
