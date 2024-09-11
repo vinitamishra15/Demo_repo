@@ -29,8 +29,8 @@ stages:
 
     # Step 1: Checkout the code from GitHub
     - checkout: self
-#    - checkout: dummy_repo
-#    - checkout: Demo_test
+    - checkout: dummy_repo
+    - checkout: Demo_test
 
     # Step 2: Run SonarQube scan
     - task: SonarQubePrepare@6
@@ -55,20 +55,20 @@ stages:
 #        pollingTimeoutSec: 300
 
     # Step 3: Run Selenium test cases
-#    - task: UsePythonVersion@0
-#      inputs:
-#        versionSpec: '3.x'
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.x'
 
-#    - script: |
-#        python -m pip install --upgrade pip
-#        pip install selenium
-#        pip install webdriver-manager
-#        pip install pytest
-#      displayName: 'Install dependencies for selenium'
+    - script: |
+        python -m pip install --upgrade pip
+        pip install selenium
+        pip install webdriver-manager
+        pip install pytest
+      displayName: 'Install dependencies for selenium'
 
-#    - script: |
-#        pytest Demo_test/Testcase/test_E2EDemoApp.py --maxfail=1 --disable-warnings -q
-#      displayName: 'Run selenium test cases'
+    - script: |
+        pytest Demo_test/Testcase/test_E2EDemoApp.py --maxfail=1 --disable-warnings -q
+      displayName: 'Run selenium test cases'
 
     # Step 2: Download the update set XML file
 #    - script: |
