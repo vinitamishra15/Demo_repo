@@ -45,6 +45,7 @@ stages:
 
     - script: |
         sonar-scanner -Dsonar.projectKey=DemoScan -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=sqa_308859b46080fb65c3121ee7b6db0b465a4ea3ad
+      workingDirectory: s\dummy_repo
       displayName: 'Run SonarQube Analysis'
 
 #    - task: SonarQubeAnalyze@6
