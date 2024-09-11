@@ -39,7 +39,7 @@ stages:
          configMode: file
          configFile: 'sonar-project.properties'
 
-#    - task: SonarQubeAnalyze@6
+    - task: SonarQubeAnalyze@6
 
 #    - task: SonarQubePublish@6
 #      inputs:
