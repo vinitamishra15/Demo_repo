@@ -16,10 +16,10 @@ trigger:
 #Currently using self hosted agent
 pool: Default
 
-variables:
-  serviceNowUrl: https://dev192158.service-now.com/
-  serviceNowUsername: '$(serviceNowUser)'
-  serviceNowPassword: '$(serviceNowPassword)'
+#variables:
+#  serviceNowUrl: https://dev192158.service-now.com/
+#  serviceNowUsername: '$(serviceNowUser)'
+#  serviceNowPassword: '$(serviceNowPassword)'
 
 stages:
 - stage: build
