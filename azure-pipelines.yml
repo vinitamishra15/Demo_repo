@@ -16,10 +16,10 @@ trigger:
 #Currently using self hosted agent
 pool: Default
 
-#variables:
-#  serviceNowUrl: https://dev192158.service-now.com/
-#  serviceNowUsername: '$(serviceNowUser)'
-#  serviceNowPassword: '$(serviceNowPassword)'
+variables:
+  serviceNowUrl: https://dev192158.service-now.com/
+  serviceNowUsername: '$(serviceNowUser)'
+  serviceNowPassword: '$(serviceNowPassword)'
 
 stages:
 - stage: build
@@ -60,3 +60,19 @@ stages:
     - script: |
         pytest Demo_test/Testcase/test_E2EDemoApp.py --maxfail=1 --disable-warnings -q
       displayName: 'Run selenium test cases'
+
+    - task: PowerShell@2
+      inputs:
+        targetType: inline
+        script: |
+          if ($LASTEXITCODE -ne 0) {
+            $url = "https://dev192158.service-now.com/api/now/table/incident"
+            @auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("$(serviceNowUsername):$(serviceNowPassword)"))
+            $headers = @{ Authorization = "Basic $auth"; 'Content-Type' = 'application/json' }
+            $body = @{
+                "short_description" = "Azure Pipeline Failure: $(Build.DefinitionName)"
+                "description" = "Pipeline failed on $(Build.BuildId)"
+              } | ConvertTo-Json
+              Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $body
+          }
+      condition: failed()
