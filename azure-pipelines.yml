@@ -67,7 +67,7 @@ stages:
         script: |
           if ($LASTEXITCODE -ne 0) {
             $url = "https://dev192158.service-now.com/api/now/table/incident"
-            $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("$(serviceNowUsername):$(serviceNowPassword)"))
+            $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:4H*ylGJ7vh-P"))
             $headers = @{ Authorization = "Basic $auth"; 'Content-Type' = 'application/json' }
             $body = @{
                 "short_description" = "Azure Pipeline Failure: $(Build.DefinitionName)"
