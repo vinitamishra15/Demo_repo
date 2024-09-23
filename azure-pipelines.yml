@@ -76,3 +76,22 @@ stages:
               Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $body
           }
       condition: failed()
+
+    - task: PowerShell@2
+      inputs:
+        targetType: inline
+        script: |
+          $url = "https://dev192158.service-now.com/api/now/table/change_request"
+          $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:4H*ylGJ7vh-P"))
+          $headers = @{ Authorization = "Basic $auth"; 'Content-Type' = 'application/json' }
+          $body = @{
+            "short_description" = "Azure Pipeline Success: $(Build.DefinitionName)"
+            "description" = "Pipeline succeeded for build $(Build.BuildId)"
+            "category" = "Software"
+            "type" = "Normal"
+            "priority" = "4"
+            "assignment_group" = "Change Management"
+          } | ConvertTo-Json
+          $response = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $body
+          Write-Host "Change Request created with SysID: $($response.result.sys_id)"
+      condition: succeeded()
