@@ -69,11 +69,21 @@ stages:
     # Step 5: To import application in non prod environment
     - script: |
         echo "Starting to import application...."
-        curl "$(IMPORT_URL)?repo_url=$(GITHUB_REPO_URL)&branch_name=main&credential_sys_id=64981ca3475892903c241a2f316d4360"
-#        curl "https://dev192158.service-now.com/api/sn_cicd/sc/import?repo_url=https%3A%2F%2Fgithub.com%2Fvinitamishra15%2FMock_code_repo.git&branch_name=main&credential_sys_id=64981ca3475892903c241a2f316d4360" \
-#        --request POST \
-#        --header "Accept:application/json" \
-#        --user 'admin':'admin'
+        # Variables
+        SERVICE_NOW_URL='https://dev192158.service-now.com/api/sn_cicd/sc/import'
+        REPO_URL='https://github.com/vinitamishra15/Mock_code_repo.git'
+        BRANCH_NAME='main'
+        CREDENTIAL_SYS_ID='64981ca3475892903c241a2f316d4360'
+        USERNAME='admin'  # Consider using a secure variable
+        PASSWORD='4H*ylGJ7vh-P'  # Consider using a secure variable
+
+        # Invoke the ServiceNow API
+        curl "$SERVICE_NOW_URL?repo_url=$REPO_URL&branch_name=$BRANCH_NAME&credential_sys_id=$CREDENTIAL_SYS_ID" \
+           --request POST \
+           --header "Accept:application/json" \
+           --user "$USERNAME:$PASSWORD"
+
+        echo "Import initiated."
       displayName: "Import application from GitHub to ServiceNow"
 
     - task: PowerShell@2
