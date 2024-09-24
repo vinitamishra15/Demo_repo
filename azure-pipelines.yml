@@ -87,7 +87,7 @@ stages:
 
           Write-Host "serviceNowUrl: $serviceNowUrl"
           # Build the full URL
-          $fullUrl = "$serviceNowUrl?repo_url=$encodedRepoUrl&branch_name=$encodedBranchName&credential_sys_id=$credentialSysId"
+          $fullUrl = "$($serviceNowUrl)?repo_url=$encodedRepoUrl&branch_name=$encodedBranchName&credential_sys_id=$credentialSysId"
 
           # Output the full URL for debugging
           Write-Host "Full URL: $fullUrl"
