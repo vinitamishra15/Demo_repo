@@ -85,6 +85,7 @@ stages:
           $encodedRepoUrl = [System.Net.WebUtility]::UrlEncode($repoUrl)
           $encodedBranchName = [System.Net.WebUtility]::UrlEncode($branchName)
 
+          Write-Host "serviceNowUrl: $serviceNowUrl"
           # Build the full URL
           $fullUrl = "$serviceNowUrl?repo_url=$encodedRepoUrl&branch_name=$encodedBranchName&credential_sys_id=$credentialSysId"
 
