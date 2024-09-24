@@ -96,7 +96,10 @@ stages:
           $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
           $credential = New-Object System.Management.Automation.PSCredential($username, $securePassword)
 
-          Invoke-RestMethod -Uri $fullUrl -Method Post -Headers @{"Accept"="application/json"} -Credential $credential
+          Invoke-RestMethod -Uri $fullUrl -Method Post -Headers @{
+            "Accept" = "application/json"
+            "Content-Type" = "application/json"  # Set the Content-Type header
+          } -Credential $credential -Body @{}
 
           Write-Host "Import initiated."
       displayName: "Import application from GitHub to ServiceNow"
