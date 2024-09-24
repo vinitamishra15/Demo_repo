@@ -82,7 +82,10 @@ stages:
           $password ='4H*ylGJ7vh-P'  # Consider using a secure variable
           
           # Build the full URL
-          $fullUrl = "$serviceNowUrl?repo_url=$repoUrl&branch_name=$branchName&credential_sys_id=$credentialSysId"
+          $fullUrl = "$serviceNowUrl?repo_url=$( [System.Web.HttpUtility]::UrlEncode($repoUrl) )&branch_name=$( [System.Web.HttpUtility]::UrlEncode($branchName) )&credential_sys_id=$credentialSysId"
+
+          # Output the full URL for debugging
+          Write-Host "Full URL: $fullUrl"
 
           # Invoke the ServiceNow API
           $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
