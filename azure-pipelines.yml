@@ -35,37 +35,45 @@ stages:
     # Step 1: Checkout the code from GitHub
     - checkout: self
     - checkout: Mock_code_repo
-#    - checkout: Demo_test
+    - checkout: Demo_test
 
     # Step 2: Prepare SonarQube for scan
-#    - task: SonarQubePrepare@6
-#      inputs:
-#         SonarQube: 'Sonar_conn'
-#         scannerMode: CLI
-#         configMode: file
-##         configFile: 'sonar-project.properties'
-#         cliProjectKey: DemoScan
-#         cliProjectName: DemoScan
+    - task: SonarQubePrepare@6
+      inputs:
+         SonarQube: 'Sonar_conn'
+         scannerMode: CLI
+         configMode: file
+#         configFile: 'sonar-project.properties'
+         cliProjectKey: DemoScan
+         cliProjectName: DemoScan
 
     # Step 3: Run SonarQube scan
-#    - script: |
-#        sonar-scanner -Dsonar.projectKey=DemoScan -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=sqa_308859b46080fb65c3121ee7b6db0b465a4ea3ad
-##      workingDirectory: dummy_repo
-#      displayName: 'Run SonarQube Analysis'
+    - script: |
+        sonar-scanner -Dsonar.projectKey=DemoScan -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=sqa_308859b46080fb65c3121ee7b6db0b465a4ea3ad
+#      workingDirectory: dummy_repo
+      displayName: 'Run SonarQube Analysis'
 
     # Step 3: Prepare to run test cases
-#    - script: |
-#        python -m pip install --upgrade pip
-#        pip install selenium
-#        pip install webdriver-manager
-#        pip install pytest
-#      displayName: 'Install dependencies for selenium'
+    - script: |
+        python -m pip install --upgrade pip
+        pip install selenium
+        pip install webdriver-manager
+        pip install pytest
+        pip install pytest-html
+      displayName: 'Install dependencies for selenium'
 
     # Step 4: Run Selenium test cases
-#    - script: |
-#        pytest Demo_test/Testcase/test_E2EDemoApp.py --maxfail=1 --disable-warnings -q
-#      displayName: 'Run selenium test cases'
-
+    - script: |
+        pytest Demo_test/Testcase/test_E2EDemoApp.py --maxfail=1 --disable-warnings -q --html=testReport.html
+      displayName: 'Run selenium test cases and generate test reports'
+      
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: testReport.html
+        ArtifactName: SeleniumTestResults
+        publishLocation: Container
+      displayName: "Publishing the report"
+      
     # Step 5: To import application in non prod environment
     - task: PowerShell@2
       inputs:
