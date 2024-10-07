@@ -38,20 +38,20 @@ stages:
     - checkout: Demo_test
 
     # Step 2: Prepare SonarQube for scan
-    - task: SonarQubePrepare@6
-      inputs:
-         SonarQube: 'Sonar_conn'
-         scannerMode: CLI
-         configMode: file
-#         configFile: 'sonar-project.properties'
-         cliProjectKey: DemoScan
-         cliProjectName: DemoScan
+#    - task: SonarQubePrepare@6
+#      inputs:
+#         SonarQube: 'Sonar_conn'
+#         scannerMode: CLI
+#         configMode: file
+##         configFile: 'sonar-project.properties'
+#         cliProjectKey: DemoScan
+#         cliProjectName: DemoScan
 
-    # Step 3: Run SonarQube scan
-    - script: |
-        sonar-scanner -Dsonar.projectKey=DemoScan -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=sqa_308859b46080fb65c3121ee7b6db0b465a4ea3ad
-#      workingDirectory: dummy_repo
-      displayName: 'Run SonarQube Analysis'
+#    # Step 3: Run SonarQube scan
+#    - script: |
+#        sonar-scanner -Dsonar.projectKey=DemoScan -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=sqa_308859b46080fb65c3121ee7b6db0b465a4ea3ad
+##      workingDirectory: dummy_repo
+#      displayName: 'Run SonarQube Analysis'
 
     # Step 3: Prepare to run test cases
     - script: |
