@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="scan_check_suite_check">
+    <scan_check_suite_check action="INSERT_OR_UPDATE">
+        <check display_value="Enable ACLs to Control Live Profile Details">d1d05f3d773011108bd73a91fa5a99fd</check>
+        <score_weight>1</score_weight>
+        <suite display_value="test_scan_suite">498aa609c3011210931e79ec05013117</suite>
+        <sys_class_name>scan_check_suite_check</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-10-03 08:42:10</sys_created_on>
+        <sys_id>fcea2249c3011210931e79ec0501317e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="DevOps_Demo" source="04b8a32747401210acd2a22f316d43ef">04b8a32747401210acd2a22f316d43ef</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="DevOps_Demo">04b8a32747401210acd2a22f316d43ef</sys_scope>
+        <sys_update_name>scan_check_suite_check_fcea2249c3011210931e79ec0501317e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-10-03 08:42:10</sys_updated_on>
+    </scan_check_suite_check>
+</record_update>
