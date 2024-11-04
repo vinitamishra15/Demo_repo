@@ -22,7 +22,7 @@ variables:
   serviceNowPassword: '$(serviceNowPassword)'
   IMPORT_URL: '$(serviceNowUrl)/api/sn_cicd/import'
   IMPORT_USER: 'admin'
-  IMPORT_PWD: '4H*ylGJ7vh-P'  # Consider using a secure variable for this
+  IMPORT_PWD: '$(serviceNowPassword)'  # Consider using a secure variable for this
   GITHUB_REPO_URL: 'https://github.com/vinitamishra15/Mock_code_repo.git'
   APP_NAME: 'YourAppName'
 
@@ -87,7 +87,7 @@ stages:
           $branchName ='main'
           $credentialSysId ='64981ca3475892903c241a2f316d4360'
           $username ='admin'  # Consider using a secure variable
-          $password ='4H*ylGJ7vh-P'  # Consider using a secure variable
+          $password ='$(serviceNowPassword)'  # Consider using a secure variable
           
           # Build the full URL with URL encoding
           $encodedRepoUrl = [System.Net.WebUtility]::UrlEncode($repoUrl)
@@ -118,7 +118,7 @@ stages:
         script: |
           if ($LASTEXITCODE -ne 0) {
             $url = "$(serviceNowUrl)/api/now/table/incident"
-            $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:4H*ylGJ7vh-P"))
+            $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:$(serviceNowPassword)"))
             $headers = @{ Authorization = "Basic $auth"; 'Content-Type' = 'application/json' }
             $body = @{
                 "short_description" = "Azure Pipeline Failure: $(Build.DefinitionName)"
@@ -133,7 +133,7 @@ stages:
         targetType: inline
         script: |
           $url = "$(serviceNowUrl)/api/now/table/change_request"
-          $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:4H*ylGJ7vh-P"))
+          $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:$(serviceNowPassword)"))
           $headers = @{ Authorization = "Basic $auth"; 'Content-Type' = 'application/json' }
           $body = @{
             "short_description" = "Azure Pipeline Success: $(Build.DefinitionName)"
