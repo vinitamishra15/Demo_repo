@@ -2,11 +2,11 @@ resources:
  repositories:
    - repository: Mock_code_repo
      type: github
-     endpoint: github.com_vinitamishra15
+     endpoint: GitHubConn
      name: vinitamishra15/Mock_code_repo
    - repository: Demo_test
      type: github
-     endpoint: github.com_vinitamishra15
+     endpoint: GitHubConn
      name: vinitamishra15/Demo_test
      ref: refs/heads/master
 
@@ -17,10 +17,10 @@ trigger:
 pool: Default
 
 variables:
-  serviceNowUrl: https://dev192158.service-now.com/
+  serviceNowUrl: '$(serviceNowUrl)'
   serviceNowUsername: '$(serviceNowUser)'
   serviceNowPassword: '$(serviceNowPassword)'
-  IMPORT_URL: 'https://dev192158.service-now.com/api/sn_cicd/import'
+  IMPORT_URL: '$(serviceNowUrl)/api/sn_cicd/import'
   IMPORT_USER: 'admin'
   IMPORT_PWD: '4H*ylGJ7vh-P'  # Consider using a secure variable for this
   GITHUB_REPO_URL: 'https://github.com/vinitamishra15/Mock_code_repo.git'
@@ -82,7 +82,7 @@ stages:
           Write-Host "Starting import to ServiceNow..."
 
           # Variables
-          $serviceNowUrl ='https://dev192158.service-now.com/api/sn_cicd/sc/import'
+          $serviceNowUrl ='$(serviceNowUrl)/api/sn_cicd/sc/import'
           $repoUrl ='https://github.com/vinitamishra15/Mock_code_repo.git'
           $branchName ='main'
           $credentialSysId ='64981ca3475892903c241a2f316d4360'
@@ -117,7 +117,7 @@ stages:
         targetType: inline
         script: |
           if ($LASTEXITCODE -ne 0) {
-            $url = "https://dev192158.service-now.com/api/now/table/incident"
+            $url = "$(serviceNowUrl)/api/now/table/incident"
             $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:4H*ylGJ7vh-P"))
             $headers = @{ Authorization = "Basic $auth"; 'Content-Type' = 'application/json' }
             $body = @{
@@ -132,7 +132,7 @@ stages:
       inputs:
         targetType: inline
         script: |
-          $url = "https://dev192158.service-now.com/api/now/table/change_request"
+          $url = "$(serviceNowUrl)/api/now/table/change_request"
           $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:4H*ylGJ7vh-P"))
           $headers = @{ Authorization = "Basic $auth"; 'Content-Type' = 'application/json' }
           $body = @{
