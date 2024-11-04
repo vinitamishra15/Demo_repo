@@ -20,7 +20,7 @@ variables:
   serviceNowUrl: '$(serviceNowUrl)'
   serviceNowUsername: '$(serviceNowUser)'
   serviceNowPassword: '$(serviceNowPassword)'
-  IMPORT_URL: '$(serviceNowUrl)/api/sn_cicd/import'
+  IMPORT_URL: '$($env:serviceNowUrl)/api/sn_cicd/import'
   IMPORT_USER: 'admin'
   IMPORT_PWD: '$(serviceNowPassword)'  # Consider using a secure variable for this
   GITHUB_REPO_URL: 'https://github.com/vinitamishra15/Mock_code_repo.git'
