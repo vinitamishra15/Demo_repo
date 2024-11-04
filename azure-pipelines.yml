@@ -82,7 +82,7 @@ stages:
           Write-Host "Starting import to ServiceNow..."
 
           # Variables
-          $serviceNowUrl ='$(serviceNowUrl)/api/sn_cicd/sc/import'
+          $importUrl ='$(serviceNowUrl)/api/sn_cicd/sc/import'
           $repoUrl ='https://github.com/vinitamishra15/Mock_code_repo.git'
           $branchName ='main'
           $credentialSysId ='b2614f9f972d1210bc6b938de053afa3'
@@ -95,7 +95,7 @@ stages:
 
           Write-Host "serviceNowUrl: $serviceNowUrl"
           # Build the full URL
-          $fullUrl = "$($serviceNowUrl)?repo_url=$encodedRepoUrl&branch_name=$encodedBranchName&credential_sys_id=$credentialSysId"
+          $fullUrl = "$($importUrl)?repo_url=$encodedRepoUrl&branch_name=$encodedBranchName&credential_sys_id=$credentialSysId"
 
           # Output the full URL for debugging
           Write-Host "Full URL: $fullUrl"
