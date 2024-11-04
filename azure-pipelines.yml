@@ -93,7 +93,7 @@ stages:
           $encodedRepoUrl = [System.Net.WebUtility]::UrlEncode($repoUrl)
           $encodedBranchName = [System.Net.WebUtility]::UrlEncode($branchName)
 
-          Write-Host "serviceNowUrl: $serviceNowUrl"
+          Write-Host "serviceNowUrl: $($env:serviceNowUrl)"
           # Build the full URL
           $fullUrl = "$($importUrl)?repo_url=$encodedRepoUrl&branch_name=$encodedBranchName&credential_sys_id=$credentialSysId"
 
