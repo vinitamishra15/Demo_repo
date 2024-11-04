@@ -17,7 +17,7 @@ trigger:
 pool: Default
 
 variables:
-#  serviceNowUrl: '$(serviceNowUrl)'
+  serviceNowUrl: '$(serviceNowUrl)'
   serviceNowUsername: '$(serviceNowUser)'
   serviceNowPassword: '$(serviceNowPassword)'
   IMPORT_URL: '$(serviceNowUrl)/api/sn_cicd/import'
@@ -82,7 +82,7 @@ stages:
           Write-Host "Starting import to ServiceNow... $($env:Import_URL)"
 
           # Variables
-          $importUrl ='$serviceNowUrl/api/sn_cicd/sc/import'
+          $importUrl ='$(serviceNowUrl)/api/sn_cicd/sc/import'
           $repoUrl ='https://github.com/vinitamishra15/Mock_code_repo.git'
           $branchName ='main'
           $credentialSysId ='b2614f9f972d1210bc6b938de053afa3'
