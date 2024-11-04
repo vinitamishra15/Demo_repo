@@ -79,7 +79,7 @@ stages:
       inputs:
         targetType: inline
         script: |
-          Write-Host "Starting import to ServiceNow... $Import_URL"
+          Write-Host "Starting import to ServiceNow... $(Import_URL)"
 
           # Variables
           $importUrl ='$(serviceNowUrl)/api/sn_cicd/sc/import'
