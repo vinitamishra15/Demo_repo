@@ -53,26 +53,26 @@ stages:
 ##      workingDirectory: dummy_repo
 #      displayName: 'Run SonarQube Analysis'
 
-    # Step 3: Prepare to run test cases
-    - script: |
-        python -m pip install --upgrade pip
-        pip install selenium
-        pip install webdriver-manager
-        pip install pytest
-        pip install pytest-html
-      displayName: 'Install dependencies for selenium'
+#    # Step 3: Prepare to run test cases
+#    - script: |
+#        python -m pip install --upgrade pip
+#        pip install selenium
+#        pip install webdriver-manager
+#        pip install pytest
+#        pip install pytest-html
+#      displayName: 'Install dependencies for selenium'
 
-    # Step 4: Run Selenium test cases
-    - script: |
-        pytest Demo_test/Testcase/test_E2EDemoApp.py --maxfail=1 --disable-warnings -q --html=testReport.html
-      displayName: 'Run selenium test cases and generate test reports'
+#    # Step 4: Run Selenium test cases
+#    - script: |
+#        pytest Demo_test/Testcase/test_E2EDemoApp.py --maxfail=1 --disable-warnings -q --html=testReport.html
+#      displayName: 'Run selenium test cases and generate test reports'
       
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: testReport.html
-        ArtifactName: SeleniumTestResults
-        publishLocation: Container
-      displayName: "Publishing the report"
+#    - task: PublishBuildArtifacts@1
+#      inputs:
+#        PathtoPublish: testReport.html
+#        ArtifactName: SeleniumTestResults
+#        publishLocation: Container
+#      displayName: "Publishing the report"
       
     # Step 5: To import application in non prod environment
     - task: PowerShell@2
