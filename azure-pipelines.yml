@@ -137,7 +137,10 @@ stages:
         script: |
           $url = "https://dev273137.service-now.com/api/now/table/change_request"
           $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:QoPpaNr5F*$9"))
-          $headers = @{ Authorization = "Basic $auth"; 'Content-Type' = 'application/json' }
+          $headers = @{
+                "Authorization" = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:QoPpaNr5F*$9"))
+                "Content-Type" = "application/json"
+              }
           $body = @{
             "short_description" = "Azure Pipeline Success: $(Build.DefinitionName)"
             "description" = "Pipeline succeeded for build $(Build.BuildId)"
