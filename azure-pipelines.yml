@@ -127,6 +127,10 @@ stages:
                 "short_description" = "Azure Pipeline Failure: $(Build.DefinitionName)"
                 "description" = "Pipeline failed on $(Build.BuildId)"
               } | ConvertTo-Json
+                        Write-Host "URI: $url"
+          Write-Host "Auth: $auth"
+          Write-Host "headers: $headers"
+          Write-Host "body: $body"
               Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $body
           }
       condition: failed()
