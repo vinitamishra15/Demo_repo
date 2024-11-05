@@ -120,7 +120,7 @@ stages:
             $url = "https://dev212832.service-now.com/api/now/table/incident"
             $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:tt!rSy25Y^SK"))
             $headers = @{
-                "Authorization" = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:QoPpaNr5F*$9"))
+                "Authorization" = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:tt!rSy25Y^SK"))
                 "Content-Type" = "application/json"
               }
             $body = @{
@@ -142,7 +142,7 @@ stages:
           $url = "https://dev212832.service-now.com/api/now/table/change_request"
           $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:tt!rSy25Y^SK"))
           $headers = @{
-                "Authorization" = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:QoPpaNr5F*$9"))
+                "Authorization" = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:tt!rSy25Y^SK"))
                 "Content-Type" = "application/json"
               }
           $body = @{
