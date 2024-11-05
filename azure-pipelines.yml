@@ -143,6 +143,7 @@ stages:
             "priority" = "4"
             "assignment_group" = "Change Management"
           } | ConvertTo-Json
+          Write-Host "URI: $url"
           $response = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $body
           Write-Host "Change Request created with SysID: $($response.result.sys_id)"
       condition: succeeded()
