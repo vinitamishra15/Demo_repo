@@ -149,7 +149,7 @@ stages:
           Write-Host "Status detail: $resDetail"
           break
           }
-
+          }
           $status = $checkStatusResponse.result.status
           Write-Host "Current status: $status"
 
