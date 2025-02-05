@@ -125,13 +125,21 @@ stages:
           "Content-Type" = "application/json"
           } -Credential $credential
 
-          Write-Host "Response value is : $($checkStatusResponse.GetType().FullName)"
+          $resStatus = $checkStatusResponse.result.status
+
           $jsonResponse = $checkStatusResponse | ConvertTo-Json -Depth 5
           Write-Host "Status response in JSON: $jsonResponse"
 
-          $xmlResponse = $checkStatusResponse | ConvertTo-Xml -Depth 5
-          Write-Host "Status Reposne: $xmlResponse"
+          if ($resStatus -ne "0") {
+          Write-Host "Status changed from '0' to '$statusLabel'. Breaking the loop."
+          break
+          }
           
+          Write-Host "Current Status is : $resStatus"
+          Write-Host "Status message: $checkStatusResponse.result.status_message"
+          Write-Host "Status label: $checkStatusResponse.result.status_label"
+          Write-Host "Status label: $checkStatusResponse.result.percent_complete"
+          Write-Host "Status label: $checkStatusResponse.result.status_detail"
           
           $status = $checkStatusResponse.result.status
           Write-Host "Current status: $status"
