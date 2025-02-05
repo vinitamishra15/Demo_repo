@@ -124,7 +124,8 @@ stages:
           "Accept"       = "application/json"
           "Content-Type" = "application/json"
           } -Credential $credential
-          
+
+          Write-Host "Response value is : $($checkStatusResponse.GetType().FullName)"
           $xmlResponse = $checkStatusResponse | ConvertTo-Xml -Depth 3
           Write-Host "Status Reposne: $xmlResponse"
           $jsonResponse = $checkStatusResponse | ConvertTo-Json -Depth 3
