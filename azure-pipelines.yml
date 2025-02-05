@@ -118,6 +118,17 @@ stages:
           Write-Host "Response data: $resLinks"
           Write-Host "Response result: $resURL"
           Write-Host "Remote changes applied."
+
+          # Check if the status is 100% by hitting the URL
+          $checkStatusResponse = Invoke-RestMethod -Uri $resURL -Method GET -Headers @{
+          "Accept"       = "application/json"
+          "Content-Type" = "application/json"
+          } -Credential $credential
+          
+          Write-Host "Status Reposne: $checkStatusResponse"
+          $status = $checkStatusResponse.result.status
+          Write-Host "Current status: $status"
+
       displayName: "Import application from GitHub to ServiceNow"
 
 #    - task: PowerShell@2
