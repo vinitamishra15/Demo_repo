@@ -98,10 +98,9 @@ stages:
           $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
           $headers.Add('Authorization',('Basic {0}' -f $base64AuthInfo))
           $headers.Add('Accept','application/json')
-          $encodedBranchName = [System.Net.WebUtility]::UrlEncode($branch)
-
+          
           # Specify endpoint uri
-          $uri = "$serviceNowUrl?app_sys_id=$appSysID&app_scope=$appScope&branch_name=$encodedBranchName"
+          $uri = "https://dev291092.service-now.com/api/sn_cicd/sc/apply_changes?app_sys_id=97ac9b1047641210acd2a22f316d432f&app_scope=global&branch_name=main"
 
           # Invoke the ServiceNow API
           $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
