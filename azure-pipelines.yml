@@ -126,10 +126,13 @@ stages:
           } -Credential $credential
 
           Write-Host "Response value is : $($checkStatusResponse.GetType().FullName)"
-          $xmlResponse = $checkStatusResponse | ConvertTo-Xml -Depth 3
-          Write-Host "Status Reposne: $xmlResponse"
-          $jsonResponse = $checkStatusResponse | ConvertTo-Json -Depth 3
+          $jsonResponse = $checkStatusResponse | ConvertTo-Json -Depth 5
           Write-Host "Status response in JSON: $jsonResponse"
+
+          $xmlResponse = $checkStatusResponse | ConvertTo-Xml -Depth 5
+          Write-Host "Status Reposne: $xmlResponse"
+          
+          
           $status = $checkStatusResponse.result.status
           Write-Host "Current status: $status"
 
