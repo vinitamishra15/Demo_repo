@@ -10,11 +10,12 @@ resources:
      name: vinitamishra15/Demo_test
      ref: refs/heads/master
 
-trigger:
-- main
+#trigger:
+#- main
 
 #Currently using self hosted agent
-pool: Default
+#pool: Default
+pool: WindowsPool
 
 variables:
   serviceNowUrl: https://dev215992.service-now.com/
