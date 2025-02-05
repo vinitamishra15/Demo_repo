@@ -140,7 +140,7 @@ stages:
           Write-Host "Status response in JSON: $jsonResponse"
 
           # If status has changed from '0' (Pending), break the loop
-          if ($resStatus -ne "0") {
+          if ($resStatus -eq "2" -or $resStatus -eq "3") {
           Write-Host "Status changed from '0' to '$resStatus'. Breaking the loop."
           Write-Host "Current Status is : $resStatus"
           Write-Host "Status message: $resMsg"
