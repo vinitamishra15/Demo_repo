@@ -123,7 +123,7 @@ stages:
           while ($percentComplete -ne 100) {
             Write-Host "Waiting for status to change... Current Status: $statusLabel"
             # Sleep for a while before polling again
-            Start-Sleep -Seconds 30
+            Start-Sleep -Seconds 5
             $progressResponse = Invoke-RestMethod -Uri $resURL -Method GET -Headers @{
               "Accept"       = "application/json"
               "Content-Type" = "application/json"
