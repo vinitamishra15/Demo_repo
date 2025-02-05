@@ -125,7 +125,8 @@ stages:
           "Content-Type" = "application/json"
           } -Credential $credential
           
-          Write-Host "Status Reposne: $checkStatusResponse"
+          $xmlResponse = $checkStatusResponse | ConvertTo-Xml -AsString -Depth 3
+          Write-Host "Status Reposne: $xmlResponse"
           $status = $checkStatusResponse.result.status
           Write-Host "Current status: $status"
 
