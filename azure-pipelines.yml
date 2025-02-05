@@ -111,40 +111,45 @@ stages:
             "Content-Type" = "application/json"
           } -Credential $credential -Body @{}
 
-          $responseResult = $response.result.status_label
-          $resLinks = $response.result.percent_complete
+          $statusLabel = $response.result.status_label
+          $percentComplete = $response.result.percent_complete
           $resURL = $response.result.links.progress.url
-          Write-Host "Response is : $responseResult"
-          Write-Host "Response data: $resLinks"
+          Write-Host "Response is : $statusLabel"
+          Write-Host "Response data: $percentComplete"
           Write-Host "Response result: $resURL"
           Write-Host "Remote changes applied."
 
           # Check if the status is 100% by hitting the URL
-          $checkStatusResponse = Invoke-RestMethod -Uri $resURL -Method GET -Headers @{
-          "Accept"       = "application/json"
-          "Content-Type" = "application/json"
-          } -Credential $credential
+          while ($percentComplete -ne 100) {
+            Write-Host "Waiting for status to change... Current Status: $statusLabel"
+            # Sleep for a while before polling again
+            Start-Sleep -Seconds 30
+            $progressResponse = Invoke-RestMethod -Uri $resURL -Method GET -Headers @{
+              "Accept"       = "application/json"
+              "Content-Type" = "application/json"
+            } -Credential $credential
 
-          $resStatus = $checkStatusResponse.result.status
-          $resMsg = $checkStatusResponse.result.status_message
-          $resLbl = $checkStatusResponse.result.status_label
-          $resComplete = $checkStatusResponse.result.percent_complete
-          $resDetail = $checkStatusResponse.result.status_detail
+            # Extract the updated status and percent complete
+            $resStatus = $progressResponse.result.status
+            $resMsg = $progressResponse.result.status_message
+            $resLbl = $progressResponse.result.status_label
+            $resComplete = $progressResponse.result.percent_complete
+            $resDetail = $progressResponse.result.status_detail
 
-          $jsonResponse = $checkStatusResponse | ConvertTo-Json -Depth 5
+          $jsonResponse = $progressResponse | ConvertTo-Json -Depth 5
           Write-Host "Status response in JSON: $jsonResponse"
 
+          # If status has changed from '0' (Pending), break the loop
           if ($resStatus -ne "0") {
-          Write-Host "Status changed from '0' to '$statusLabel'. Breaking the loop."
-          break
-          }
-          
+          Write-Host "Status changed from '0' to '$resStatus'. Breaking the loop."
           Write-Host "Current Status is : $resStatus"
           Write-Host "Status message: $resMsg"
           Write-Host "Status label: $resLbl"
           Write-Host "Status percent complete: $resComplete"
           Write-Host "Status detail: $resDetail"
-          
+          break
+          }
+
           $status = $checkStatusResponse.result.status
           Write-Host "Current status: $status"
 
