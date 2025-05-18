@@ -83,7 +83,7 @@ stages:
         script: |
           # Eg. User name="admin", Password="admin" for this code sample.
           $user = "admin"
-          $pass = "bZpI$Sp$3Ii3"
+          $pass = 'bZpI$Sp$3Ii3'
 
           # Build auth header
           $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user, $pass)))
@@ -102,7 +102,7 @@ stages:
 
           # Send HTTP request
           $response = Invoke-RestMethod -Headers $headers -Method $method -Uri $uri 
-      displayName: :Testing auth"
+      displayName: "Testing auth"
     - task: PowerShell@2
       inputs:
         targetType: inline
