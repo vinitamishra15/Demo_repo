@@ -178,28 +178,41 @@ stages:
 #          }
 #      condition: failed()
 
-#    - task: PowerShell@2
-#      inputs:
-#        targetType: inline
-#        script: |
-#          $url = "https://dev212832.service-now.com/api/now/table/change_request"
-#          $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:tt!rSy25Y^SK"))
-#          $headers = @{
-#                "Authorization" = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:tt!rSy25Y^SK"))
-#                "Content-Type" = "application/json"
-#              }
-#          $body = @{
-#            "short_description" = "Azure Pipeline Success: $(Build.DefinitionName)"
-#            "description" = "Pipeline succeeded for build $(Build.BuildId)"
-#            "category" = "Software"
-#            "type" = "Normal"
-#            "priority" = "4"
-#            "assignment_group" = "Change Management"
-#          } | ConvertTo-Json
-#          Write-Host "URI: $url"
-#          Write-Host "Auth: $auth"
-#          Write-Host "headers: $headers"
-#          Write-Host "body: $body"
-#          $response = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $body
-#          Write-Host "Change Request created with SysID: $($response.result.sys_id)"
+    - task: PowerShell@2
+      inputs:
+        targetType: inline
+        script: |
+          #Create body for change request
+          $CR_path="$(Build.SourcesDirectory)\CR_template.json"
+          $CR_Data = Get-Content -Raw -Path $CR_path | ConvertFrom-Json
+
+          $shortDesc=$CR_data.short_description
+          $description=$CR_data.description
+          $category=$CR_data.category
+          $priority=CR_data.priority
+          $risk=CR_data.risk
+          $type=CR_data.type
+          $assignment_group=CR_data.assignment_group
+          
+          $url = "https://dev252383.service-now.com/api/now/table/change_request"
+          $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:bZpI$Sp$3Ii3"))
+          $headers = @{
+                "Authorization" = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:bZpI$Sp$3Ii3"))
+                "Content-Type" = "application/json"
+              }
+          $body = @{
+            short_description = $shortDesc
+            description = $description
+            category = $category
+            type = $type
+            priority = $risk
+            assignment_group = $assignment_group
+          } | ConvertTo-Json -Depth 3
+          
+          Write-Host "URI: $url"
+          Write-Host "Auth: $auth"
+          Write-Host "headers: $headers"
+          Write-Host "body: $body"
+          $response = Invoke-RestMethod -Uri $url -Method Post -Headers $headers -Body $body
+          Write-Host "Change Request created with SysID: $($response.result.sys_id)"
 #      condition: succeeded()
