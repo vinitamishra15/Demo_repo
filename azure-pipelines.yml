@@ -76,38 +76,11 @@ stages:
 #      displayName: "Publishing the report"
       
     # Step 5: To import application in non prod environment
-
     - task: PowerShell@2
       inputs:
         targetType: inline
         script: |
-          # Eg. User name="admin", Password="admin" for this code sample.
-          $user = "admin"
-          $pass = 'bZpI$Sp$3Ii3'
-
-          # Build auth header
-          #$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user, $pass)))
-          $base64AuthInfo = "YWRtaW46YlpwSSRTcCQzSWkz"
-          # Set proper headers
-          $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-          $headers.Add('Authorization',('Basic {0}' -f $base64AuthInfo))
-          $headers.Add('Accept','application/json')
-
-
-          # Specify endpoint uri
-          $uri = "https://dev286414.service-now.com/api/now/table/change_request/c83c5e5347c12200e0ef563dbb9a7190"
-
-          # Specify HTTP method
-          $method = "get"
-
-          # Send HTTP request
-          $response = Invoke-RestMethod -Headers $headers -Method $method -Uri $uri 
-      displayName: "Testing auth"
-    - task: PowerShell@2
-      inputs:
-        targetType: inline
-        script: |
-          $auth = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:bZpI$Sp$3Ii3"))
+          $auth = "YWRtaW46YlpwSSRTcCQzSWkz"
           $headers = @{
                 "Authorization" = "Basic $auth"
                 "Content-Type"  = "application/json"
