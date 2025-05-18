@@ -81,6 +81,14 @@ stages:
       inputs:
         targetType: inline
         script: |
+          $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:bZpI$Sp$3Ii3"))
+          $headers = @{
+                "Authorization" = "Basic $auth"
+                "Content-Type"  = "application/json"
+              }
+
+          Invoke-RestMethod -Uri "https://dev252383.service-now.com/api/now/table/change_request" -Method Get -Headers $headers
+
           #Create body for change request
           $rootPath = "$(Build.SourcesDirectory)"
           Write-Host "Listing contents of: $rootPath"
