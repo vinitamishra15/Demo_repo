@@ -85,7 +85,7 @@ stages:
           $rootPath = "$(Build.SourcesDirectory)"
           Write-Host "Listing contents of: $rootPath"
           Get-ChildItem -Path $rootPath
-          $CR_path="$(Build.SourcesDirectory)\CR_template.json"
+          $CR_path="$(Build.SourcesDirectory)\Demo_repo\CR_template.json"
           $CR_Data = Get-Content -Raw -Path $CR_path | ConvertFrom-Json
 
           $shortDesc=$CR_data.short_description
