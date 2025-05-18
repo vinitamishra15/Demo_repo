@@ -90,6 +90,9 @@ stages:
             Invoke-RestMethod -Uri "https://dev252383.service-now.com/api/now/table/change_request" -Method Get -Headers $headers
           }catch{
             Write-Host "❌ API call failed: $($_.Exception.Message)"
+             $reader = New-Object System.IO.StreamReader($_.Exception.Response.GetResponseStream())
+             $responseBody = $reader.ReadToEnd()
+             Write-Host "Response Body: $responseBody"
           }
           
 
