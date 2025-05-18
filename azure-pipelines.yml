@@ -82,6 +82,8 @@ stages:
         targetType: inline
         script: |
           #Create body for change request
+          $rootPath = "$(Build.SourcesDirectory)"
+          Write-Host "Listing contents of: $rootPath"
           $CR_path="$(Build.SourcesDirectory)\CR_template.json"
           $CR_Data = Get-Content -Raw -Path $CR_path | ConvertFrom-Json
 
