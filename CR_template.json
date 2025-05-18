@@ -3,7 +3,7 @@
   "description": "This change will deploy the new feature to the production environment.\nSTRY101\nSTRY102",
   "category": "Software",
   "priority": "2",
-  "risk": "medium"
-  "type": "Normal"
+  "risk": "medium",
+  "type": "Normal",
   "assignment_group": "Change Management"
 }
