@@ -81,7 +81,7 @@ stages:
       inputs:
         targetType: inline
         script: |
-          $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:bZpI$Sp$3Ii3"))
+          $auth = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("admin:bZpI$Sp$3Ii3"))
           $headers = @{
                 "Authorization" = "Basic $auth"
                 "Content-Type"  = "application/json"
@@ -112,7 +112,7 @@ stages:
           $assignment_group=$CR_data.assignment_group
           
           $url = "https://dev252383.service-now.com/api/now/table/change_request"
-          $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:bZpI$Sp$3Ii3"))
+          $auth = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("admin:bZpI$Sp$3Ii3"))
           $headers = @{
                 "Authorization" = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:bZpI$Sp$3Ii3"))
                 "Content-Type" = "application/json"
