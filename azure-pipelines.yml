@@ -86,8 +86,8 @@ stages:
           $pass = 'bZpI$Sp$3Ii3'
 
           # Build auth header
-          $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user, $pass)))
-
+          #$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user, $pass)))
+          $base64AuthInfo = "YWRtaW46YlpwSSRTcCQzSWkz"
           # Set proper headers
           $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
           $headers.Add('Authorization',('Basic {0}' -f $base64AuthInfo))
