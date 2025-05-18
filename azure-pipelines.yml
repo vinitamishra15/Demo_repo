@@ -91,10 +91,10 @@ stages:
           $shortDesc=$CR_data.short_description
           $description=$CR_data.description
           $category=$CR_data.category
-          $priority=CR_data.priority
-          $risk=CR_data.risk
-          $type=CR_data.type
-          $assignment_group=CR_data.assignment_group
+          $priority=$CR_data.priority
+          $risk=$CR_data.risk
+          $type=$CR_data.type
+          $assignment_group=$CR_data.assignment_group
           
           $url = "https://dev252383.service-now.com/api/now/table/change_request"
           $auth = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin:bZpI$Sp$3Ii3"))
