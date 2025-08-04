@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.TraceFileAjax</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>TraceFileAjax</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var TraceFileAjax = Class.create();
+TraceFileAjax.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+
+  linkFile: function() {
+    var fileId = this.getParameter('sysparm_file_id');
+    var storyId = this.getParameter('sysparm_story');
+    var defectId = this.getParameter('sysparm_defect');
+
+    if (!fileId)
+      return "Invalid file reference.";
+
+    var fileGR = new GlideRecord('sys_metadata');
+    if (!fileGR.get(fileId))
+      return "File not found.";
+
+    var trace = new GlideRecord('u_trace_file');
+    trace.initialize();
+    trace.setValue('file_name', fileGR.getValue('name'));
+    trace.setValue('file_sys_id', fileId);
+    trace.setValue('file_type', fileGR.getRecordClassName());
+    trace.setValue('created_by', gs.getUserID());
+
+    var valid = false;
+
+    if (storyId) {
+      var story = new GlideRecord('rm_story');
+      story.addQuery('number', storyId);
+      story.query();
+      if (story.next()) {
+        trace.setValue('story', story.sys_id);
+        valid = true;
+      } else {
+        return "Invalid Story ID: " + storyId;
+      }
+    }
+
+    if (defectId) {
+      var defect = new GlideRecord('rm_defect');
+      defect.addQuery('number', defectId);
+      defect.query();
+      if (defect.next()) {
+        trace.setValue('defect', defect.sys_id);
+        valid = true;
+      } else {
+        return "Invalid Defect ID: " + defectId;
+      }
+    }
+
+    if (valid) {
+      trace.insert();
+      return "Trace record created successfully.";
+    } else {
+      return "Trace not created. Please enter a valid Story or Defect ID.";
+    }
+  }
+
+});
+]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-07-30 17:12:06</sys_created_on>
+        <sys_id>c9bbddb9834b2210f622e5d0deaad313</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>TraceFileAjax</sys_name>
+        <sys_package display_value="DevOps_Test" source="44b1ccab471092903c241a2f316d43b1">44b1ccab471092903c241a2f316d43b1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="DevOps_Test">44b1ccab471092903c241a2f316d43b1</sys_scope>
+        <sys_update_name>sys_script_include_c9bbddb9834b2210f622e5d0deaad313</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-07-30 17:12:06</sys_updated_on>
+    </sys_script_include>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>c9bbddb9834b2210f622e5d0deaad313</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-07-30 17:12:05</sys_created_on>
+        <sys_id>1b8cddb5834b2210f622e5d0deaad36e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-07-30 17:12:05</sys_updated_on>
+        <table>sys_script_include</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>
