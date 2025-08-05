@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="b69e09b9830b2210f622e5d0deaad3e9" label="Trace File" max_length="40" name="u_trace_file" type="collection">
+        <element default="50" label="App Version" max_length="40" name="u_app_version" type="string"/>
+        <element label="File Name" max_length="255" name="u_file_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="File Type" max_length="40" name="u_file_type" type="choice">
+            <choice/>
+        </element>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="File Sys ID" max_length="32" name="u_file_sys_id" reference="sys_metadata" type="reference"/>
+        <element default="64" label="Commit ID" max_length="40" name="u_commit_id" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Story" max_length="32" name="u_story" reference="rm_story" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Defect" max_length="32" name="u_defect" reference="rm_defect" type="reference"/>
+        <index name="index">
+            <element name="u_defect"/>
+        </index>
+        <index name="index2">
+            <element name="u_file_sys_id"/>
+        </index>
+        <index name="index3">
+            <element name="u_story"/>
+        </index>
+    </element>
+</database>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="hasLabels=true,update_synch=true" audit="true" db_object_id="cee4a0335d3122104f34969735a7adbe" extends="sys_metadata" label="Business Rule" max_length="40" name="sys_script" read_roles="business_rule_admin" text_index="true" type="collection">
+        <element attributes="encode_utf8=false" label="Development task" max_length="32" name="u_development_task" reference="task" type="reference"/>
+        <index name="index">
+            <element name="u_development_task"/>
+        </index>
+    </element>
+</database>
